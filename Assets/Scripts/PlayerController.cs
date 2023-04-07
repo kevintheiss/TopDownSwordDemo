@@ -22,9 +22,9 @@ public class PlayerController : MonoBehaviour
         playerAnimator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // If the player has died, stop updating
         if(!isAlive)
         {
             return;
@@ -32,58 +32,138 @@ public class PlayerController : MonoBehaviour
         Walk();
     }
 
+    /*
+     * Input System movement check
+     */
     void OnMove(InputValue value)
     {
+        // If the player has died, stop moving
         if(!isAlive)
         {
             return;
         }
-        moveInput = value.Get<Vector2>();
+        moveInput = value.Get<Vector2>(); // Set the player movement vector to the input value
         Debug.Log(moveInput);
     }
 
+    /*
+     * Allows the player to walk up, down, left, right, and diagonally
+     * Also sets walking and idle animations to their respective directions
+     */
     void Walk()
     {
-        // bool isWalking = Mathf.Abs(playerRigidBody.velocity) > Mathf.Epsilon;
-        // Vector2 playerVelocity;
-        //if (isWalking)
-        //  {
-        //playerVelocity = new Vector2(playerRigidBody.velocity.x, moveInput.y * moveSpeed);
-        //playerRigidBody.AddForce(moveInput * moveSpeed, ForceMode2D.Impulse);
-        float moveHorizontal = moveInput.x;
-        float moveVertical = moveInput.y;
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        transform.Translate(movement * moveSpeed * Time.deltaTime);
-            if(moveVertical > 0f)
-            {
-                
-                playerAnimator.SetBool("IsUpPressed", true);
-                playerAnimator.SetBool("IsFacingUp", true);
-                playerAnimator.SetBool("IsDownPressed", false);
-                playerAnimator.SetBool("IsFacingDown", false);
-            }
-            else if(moveVertical < 0f)
-            {
-                playerAnimator.SetBool("IsUpPressed", false);
-                playerAnimator.SetBool("IsFacingUp", false);
-                playerAnimator.SetBool("IsDownPressed", true);
-                playerAnimator.SetBool("IsFacingDown", true);
-            }
-            else if(moveVertical == 0f && playerAnimator.GetBool("IsFacingDown"))
-            {
-                playerAnimator.SetBool("IsUpPressed", false);
-                playerAnimator.SetBool("IsFacingUp", false);
-                playerAnimator.SetBool("IsDownPressed", false);
-               // playerAnimator.SetBool("IsFacingDown", false);
-            }
+        float moveHorizontal = moveInput.x; // X axis movement input
+        float moveVertical = moveInput.y; // Y axis movement input
+        
+        transform.Translate(moveInput * moveSpeed * Time.deltaTime); // Move the player at the value of moveSpeed
 
-        else if (moveVertical == 0f && playerAnimator.GetBool("IsFacingUp"))
+        // If the player is moving up (north)
+        if(moveVertical > 0f)
         {
-            playerAnimator.SetBool("IsUpPressed", false);
-            //playerAnimator.SetBool("IsFacingUp", false);
+            // Set the walking animation to its "up" direction
+            playerAnimator.SetBool("IsUpPressed", true);
+            playerAnimator.SetBool("IsFacingUp", true);
             playerAnimator.SetBool("IsDownPressed", false);
             playerAnimator.SetBool("IsFacingDown", false);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsFacingRight", false);
+            playerAnimator.SetBool("IsLeftPressed", false);
+            playerAnimator.SetBool("IsFacingLeft", false);
         }
-        // }
+
+        // If the player is moving down (south)
+        if(moveVertical < 0f)
+        {         
+            // Set the walking animation to its "down" direction
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsFacingUp", false);
+            playerAnimator.SetBool("IsDownPressed", true);
+            playerAnimator.SetBool("IsFacingDown", true);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsFacingRight", false);
+            playerAnimator.SetBool("IsLeftPressed", false);
+            playerAnimator.SetBool("IsFacingLeft", false);
+        }
+        
+        // If the player is moving right (east)
+        if(moveHorizontal > 0f)
+        {
+            // Set the walking animation to its "right" direction
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsFacingUp", false);
+            playerAnimator.SetBool("IsDownPressed", false);
+            playerAnimator.SetBool("IsFacingDown", false);
+            playerAnimator.SetBool("IsRightPressed", true);
+            playerAnimator.SetBool("IsFacingRight", true);
+            playerAnimator.SetBool("IsLeftPressed", false);
+            playerAnimator.SetBool("IsFacingLeft", false);
+        }
+
+        // If the player is moving left (west)
+        if (moveHorizontal < 0f)
+        {
+            // Set the walking animation to its "left" direction
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsFacingUp", false);
+            playerAnimator.SetBool("IsDownPressed", false);
+            playerAnimator.SetBool("IsFacingDown", false);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsFacingRight", false);
+            playerAnimator.SetBool("IsLeftPressed", true);
+            playerAnimator.SetBool("IsFacingLeft", true);
+        }
+
+        // If the player is not moving and facing down (south)
+        if (moveHorizontal == 0f && moveVertical == 0f && playerAnimator.GetBool("IsFacingDown"))
+        {
+            // Set the animation to its "idle down" state
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsFacingUp", false);
+            playerAnimator.SetBool("IsDownPressed", false);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsFacingRight", false);
+            playerAnimator.SetBool("IsLeftPressed", false);
+            playerAnimator.SetBool("IsFacingLeft", false);
+        }
+
+        // If the player is not moving and facing up (north)
+        if (moveHorizontal == 0f && moveVertical == 0f && playerAnimator.GetBool("IsFacingUp"))
+        {
+            // Set the animation to the "idle up" state
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsDownPressed", false);
+            playerAnimator.SetBool("IsFacingDown", false);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsFacingRight", false);
+            playerAnimator.SetBool("IsLeftPressed", false);
+            playerAnimator.SetBool("IsFacingLeft", false);
+        }
+
+        // If the player is not moving and facing right (east)
+        if (moveHorizontal == 0f && moveVertical == 0f && playerAnimator.GetBool("IsFacingRight"))
+        {
+            // Set the animation to the "idle right" state
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsFacingUp", false);
+            playerAnimator.SetBool("IsDownPressed", false);
+            playerAnimator.SetBool("IsFacingDown", false);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsLeftPressed", false);
+            playerAnimator.SetBool("IsFacingLeft", false);
+
+        }
+
+        // If the player is not moving and facing left (west)
+        if (moveHorizontal == 0f && moveVertical == 0f && playerAnimator.GetBool("IsFacingLeft"))
+        {
+            // Set the animation to the "idle left" state
+            playerAnimator.SetBool("IsUpPressed", false);
+            playerAnimator.SetBool("IsFacingUp", false);
+            playerAnimator.SetBool("IsDownPressed", false);
+            playerAnimator.SetBool("IsFacingDown", false);
+            playerAnimator.SetBool("IsRightPressed", false);
+            playerAnimator.SetBool("IsFacingRight", false);
+            playerAnimator.SetBool("IsLeftPressed", false);
+        }
     }
 }
