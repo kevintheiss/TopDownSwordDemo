@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 5f;
 
-    Vector2 moveInput; // Stores the player movement vector
+    Vector2 moveInput; // Stores the player movement input vector
     Rigidbody2D playerRigidBody;
     Animator playerAnimator;
 
@@ -54,11 +54,11 @@ public class PlayerController : MonoBehaviour
     {
         float moveHorizontal = moveInput.x; // X axis movement input
         float moveVertical = moveInput.y; // Y axis movement input
-        
-        transform.Translate(moveInput * moveSpeed * Time.deltaTime); // Move the player at the value of moveSpeed
+        Vector2 playerVelocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed); // Player movement vector
+        playerRigidBody.velocity = playerVelocity; // Move the player based on the movement vector
 
         // If the player is moving up (north)
-        if(moveVertical > 0f)
+        if (moveVertical > 0f)
         {
             // Set the walking animation to its "up" direction
             playerAnimator.SetBool("IsUpPressed", true);
