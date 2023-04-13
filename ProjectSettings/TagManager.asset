@@ -13,8 +13,8 @@ TagManager:
   - UI
   - Player
   - Background
-  - 
-  - 
+  - Floor
+  - Bottom Wall
   - 
   - 
   - 
@@ -47,6 +47,12 @@ TagManager:
   - name: Walls
     uniqueID: 1084821285
     locked: 0
+  - name: Floor
+    uniqueID: 3366257343
+    locked: 0
   - name: Player
     uniqueID: 3919951741
+    locked: 0
+  - name: Bottom Wall
+    uniqueID: 3534525165
     locked: 0
