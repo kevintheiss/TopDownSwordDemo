@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     Vector2 moveInput; // Stores the player movement input vector
     Rigidbody2D playerRigidBody;
     Animator playerAnimator;
+    PlayerInput playerInput;
 
     bool isAlive = true;
     
@@ -20,6 +21,8 @@ public class PlayerController : MonoBehaviour
     {
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerAnimator = GetComponent<Animator>();
+        playerInput = GetComponent<PlayerInput>();
+       // playerAnimator.SetBool("IsFacingDown", true);
     }
 
     void Update()
@@ -44,6 +47,19 @@ public class PlayerController : MonoBehaviour
         }
         moveInput = value.Get<Vector2>(); // Set the player movement vector to the input value
         Debug.Log(moveInput);
+    }
+
+    void OnMelee(InputValue value)
+    {
+        if(!isAlive)
+        {
+            return;
+        }
+
+        if(value.isPressed)
+        {
+            MeleeAttack();
+        }
     }
 
     /*
@@ -165,5 +181,22 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetBool("IsFacingRight", false);
             playerAnimator.SetBool("IsLeftPressed", false);
         }
+    }
+
+    void MeleeAttack()
+    {
+        StartCoroutine("MeleeAttackAnimDelay");
+    }
+
+    IEnumerator MeleeAttackAnimDelay()
+    {
+        playerInput.actions.Disable();
+        playerAnimator.SetBool("IsAttacking", true);
+        playerRigidBody.constraints = RigidbodyConstraints2D.FreezePosition;
+        yield return new WaitForSeconds(0.5f);
+        playerAnimator.SetBool("IsAttacking", false);
+        playerInput.actions.Enable();
+        playerRigidBody.constraints = RigidbodyConstraints2D.None;
+        playerRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
     }
 }
