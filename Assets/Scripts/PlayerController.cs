@@ -49,13 +49,18 @@ public class PlayerController : MonoBehaviour
         Debug.Log(moveInput);
     }
 
+    /*
+     * Input System melee attack check
+     */
     void OnMelee(InputValue value)
     {
+        // If the player has died, stop attacking
         if(!isAlive)
         {
             return;
         }
 
+        // If the melee attack button is pressed, perform a melee attack
         if(value.isPressed)
         {
             MeleeAttack();
@@ -183,20 +188,26 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    /*
+     * Allows the player to perform a melee attack
+     */
     void MeleeAttack()
     {
-        StartCoroutine("MeleeAttackAnimDelay");
+        StartCoroutine("MeleeAttackAnimDelay"); // Start the melee attack animation delay coroutine
     }
 
+    /*
+     * Coroutine to delay the attack animation state change and prevent the player from moving during the attack animation
+     */
     IEnumerator MeleeAttackAnimDelay()
     {
-        playerInput.actions.Disable();
-        playerAnimator.SetBool("IsAttacking", true);
-        playerRigidBody.constraints = RigidbodyConstraints2D.FreezePosition;
-        yield return new WaitForSeconds(0.5f);
-        playerAnimator.SetBool("IsAttacking", false);
-        playerInput.actions.Enable();
-        playerRigidBody.constraints = RigidbodyConstraints2D.None;
-        playerRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        playerInput.actions.Disable(); // Disable player input during animation
+        playerAnimator.SetBool("IsAttacking", true); // Set the animation to the "attacking" state
+        playerRigidBody.constraints = RigidbodyConstraints2D.FreezePosition; // Stop player movement during animation
+        yield return new WaitForSeconds(0.5f); // Return a 0.5 second delay
+        playerAnimator.SetBool("IsAttacking", false); // Stop the attack animation
+        playerInput.actions.Enable(); // Re-enable player input
+        playerRigidBody.constraints = RigidbodyConstraints2D.None; // Re-enable player movement
+        playerRigidBody.constraints = RigidbodyConstraints2D.FreezeRotation; // Prevent player rotation
     }
 }
