@@ -15,7 +15,7 @@ TagManager:
   - Background
   - Floor
   - Bottom Wall
-  - 
+  - Traps
   - 
   - 
   - 
@@ -49,6 +49,9 @@ TagManager:
     locked: 0
   - name: Floor
     uniqueID: 3366257343
+    locked: 0
+  - name: Traps
+    uniqueID: 4152938391
     locked: 0
   - name: Player
     uniqueID: 3919951741

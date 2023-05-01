@@ -155,8 +155,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f2d88d495ff7ff41ab91c25a27e07ea
-      internalID: -654048603
+      spriteID: a61b40b342c6a8743b905fa0d45a9991
+      internalID: -318820396
       vertices: []
       indices: 
       edges: []
@@ -176,8 +176,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ecc1cb06f25c5c641ad55829877128a2
-      internalID: -1244807124
+      spriteID: ebf242303df9fc145b9e802c21010f34
+      internalID: -936922650
       vertices: []
       indices: 
       edges: []
@@ -197,8 +197,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a5d4941c66456a04381d48c3dd0a21c2
-      internalID: -503704090
+      spriteID: 32f05877a3eab0e41ace67123c215153
+      internalID: 2056546523
       vertices: []
       indices: 
       edges: []
@@ -218,8 +218,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 98cf1b8e1a1ee9a41a0745bf227c6b26
-      internalID: -995100029
+      spriteID: 996b16938751dec4d926bf2486697ba2
+      internalID: -1566498212
       vertices: []
       indices: 
       edges: []
@@ -235,10 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Spikes trap_0: -654048603
-      Spikes trap_1: -1244807124
-      Spikes trap_2: -503704090
-      Spikes trap_3: -995100029
+      Spikes trap_0: -318820396
+      Spikes trap_1: -936922650
+      Spikes trap_2: 2056546523
+      Spikes trap_3: -1566498212
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

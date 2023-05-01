@@ -2,6 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+
+/*
+ * A class to manage the overall game state, including UI, player health, and lives count
+ */
 public class GameSession : MonoBehaviour
 {
     [SerializeField] int playerHealth = 100; // Player starting health
