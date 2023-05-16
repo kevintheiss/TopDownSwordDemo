@@ -8,8 +8,10 @@ using TMPro;
  */
 public class GameSession : MonoBehaviour
 {
-    [SerializeField] int playerHealth = 100; // Player starting health
+    [SerializeField] int playerMaxHealth = 100;
     [SerializeField] TextMeshProUGUI healthText; // UI text to display health
+
+    int playerCurrentHealth;
 
     void Awake()
     {
@@ -30,6 +32,16 @@ public class GameSession : MonoBehaviour
 
     void Start()
     {
-        healthText.text = playerHealth.ToString(); // Set the UI health text to the starting player health
+        playerCurrentHealth = playerMaxHealth; // Set the player's current health to max health
+        healthText.text = playerCurrentHealth.ToString(); // Set the UI health text to the starting player health
+    }
+
+    /*
+     * Reduce the player's health by the value passed in
+     */
+    public void TakeDamage(int damage)
+    {
+        playerCurrentHealth = Mathf.Clamp(playerCurrentHealth - damage, 0, playerMaxHealth); // Subtract damage and make sure the player's health never goes below 0
+        healthText.text = playerCurrentHealth.ToString(); // Update the UI text
     }
 }

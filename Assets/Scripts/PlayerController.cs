@@ -73,9 +73,9 @@ public class PlayerController : MonoBehaviour
      */
     void Walk()
     {
-        float moveHorizontal = moveInput.x; // X axis movement input
-        float moveVertical = moveInput.y; // Y axis movement input
-        Vector2 playerVelocity = new Vector2(moveInput.x * moveSpeed, moveInput.y * moveSpeed); // Player movement vector
+        float moveHorizontal = moveInput.x;
+        float moveVertical = moveInput.y;
+        Vector2 playerVelocity = new Vector2(moveHorizontal * moveSpeed, moveVertical * moveSpeed);
         playerRigidBody.velocity = playerVelocity; // Move the player based on the movement vector
 
         // If the player is moving up (north)
